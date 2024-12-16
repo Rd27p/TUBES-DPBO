@@ -153,33 +153,47 @@ public class Main {
                         System.out.print("Masukkan tujuan: ");
                         destination = scanner.nextLine();
                         Pengantaran pengantaran = new Pengantaran(name, destination);
-                        pengantaran.alamatTujuan(destination);
                         Pemesanan pemesanan = null;
                         if (kendaraanPilih == 1) {
                             pemesanan = new Motor(name, pickuplocation, destination, "Motor");
                         } else if (kendaraanPilih == 2) {
                             pemesanan = new Mobil(name, pickuplocation, destination, "Mobil");
                         }
-
+                        
                         if (pemesanan != null) {
                             pemesanans.add(pemesanan); // Add booking to the list
                             System.out.println("Pemesanan berhasil!");
                             System.out.println(pemesanan.toString());
+                            pengantaran.alamatTujuan(destination);
                             break;
                         }
-                    } catch (IllegalArgumentException e) {
+                                            } catch (IllegalArgumentException e) {
                         System.out.println("Error: " + e.getMessage());
                     }
+                    
                 }
                 break;
             case 2:
-                // Display riwayat
                 if (pemesanans.isEmpty()) {
                     System.out.println("Belum ada riwayat pemesanan.");
                 } else {
                     System.out.println("\n=== RIWAYAT PEMESANAN ===");
                     for (int i = 0; i < pemesanans.size(); i++) {
                         System.out.println((i + 1) + ". " + pemesanans.get(i).toString());
+                    }
+
+                    System.out.print("Masukkan nomor pemesanan untuk melihat detail (atau 0 untuk kembali): ");
+                    int nomor = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (nomor > 0 && nomor <= pemesanans.size()) {
+                        Pemesanan pemesananDetail = pemesanans.get(nomor - 1);
+                        System.out.println("\n=== DETAIL PEMESANAN ===");
+                        System.out.println(pemesanans.get(nomor - 1).toString());
+                    } else if (nomor == 0) {
+                        break;
+                    } else {
+                        System.out.println("Pilihan tidak valid.");
                     }
                 }
                 break;

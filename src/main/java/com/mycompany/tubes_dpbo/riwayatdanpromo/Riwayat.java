@@ -11,23 +11,30 @@ import com.mycompany.tubes_dpbo.riwayatdanpromo.RPemesanan;
  * @author Raka Darma
  */
 public class Riwayat extends RPemesanan {
-    public Riwayat(String DName, String UName, String orderID) {
-        super(DName, UName, orderID);
+    private double hargaPerKm; // Price per kilometer
+    private double jarak; // Distance in kilometers
+
+    public Riwayat(String name, String pickuplocation, String destination, String kendaraan, double hargaPerKm, double jarak) {
+        super(name, pickuplocation, destination, kendaraan);
+        this.hargaPerKm = hargaPerKm;
+        this.jarak = jarak;
     }
 
+    // Implementation of total price calculation
     @Override
-    public void DName() {
-        
+    public double totalHarga() {
+        return hargaPerKm * jarak;
     }
 
+    // Implementation of toString
     @Override
-    public void Uname() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void OrderID() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String toString() {
+        return "Pemesanan dengan Nama\t: " + super.getName() + 
+               "\nLokasi Penjemputan\t: " + super.getPickuplocation() + 
+               "\nTujuan\t\t\t: " + super.getDestination() + 
+               "\nMenggunakan Kendaraan\t: " + super.getKendaraan() + 
+               "\nTotal Harga\t\t: " + totalHarga();
     }
 }
+
 

@@ -9,17 +9,44 @@ package com.mycompany.tubes_dpbo.riwayatdanpromo;
  * @author Raka Darma
  */
 public abstract class RPemesanan {
-    protected String DName;
-    protected String UName;
-    protected String orderID;
+    protected String name; // Driver or User Name
+    protected String pickuplocation;
+    protected String destination;
+    protected String kendaraan; // Vehicle type
 
-    public RPemesanan(String DName, String UName, String orderID) {
-        this.DName = DName;
-        this.UName = UName;
-        this.orderID = orderID;
+    public RPemesanan(String name, String pickuplocation, String destination, String kendaraan) {
+        this.name = name;
+        this.pickuplocation = pickuplocation;
+        this.destination = destination;
+        this.kendaraan = kendaraan;
     }
-    
-    public abstract void DName();
-    public abstract void Uname();
-    public abstract void OrderID();
+
+    // Getter methods for the fields
+    public String getName() {
+        return name;
+    }
+
+    public String getPickuplocation() {
+        return pickuplocation;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public String getKendaraan() {
+        return kendaraan;
+    }
+
+    // Abstract method for total price calculation
+    public abstract double totalHarga();
+
+    // Abstract toString method
+    @Override
+    public abstract String toString();
+
+    public boolean getDetail() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+
