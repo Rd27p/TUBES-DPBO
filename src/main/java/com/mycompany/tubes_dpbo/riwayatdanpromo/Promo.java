@@ -9,10 +9,10 @@ package com.mycompany.tubes_dpbo.riwayatdanpromo;
  * @author Raka Darma
  */
 public class Promo {
-    protected String kode;
+    public String kode;
     protected int hargaPromo;
-    protected int diskon;
-    protected String jenisKendaraan;
+    public int diskon;
+    public String jenisKendaraan;
 
     public Promo(String kode, int hargaPromo, int diskon, String jenisKendaraan) {
         this.kode = kode;
@@ -33,6 +33,10 @@ public class Promo {
             new Promo("PROMO30", 14000, 15, "Mobil"),
             new Promo("PROMO40", 15000, 15, "Motor")
         };
+    }
+
+    public String getJenisKendaraan() {
+        return jenisKendaraan;
     }
     
     @Override
