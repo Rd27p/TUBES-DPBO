@@ -9,6 +9,7 @@ package com.mycompany.tubes_dpbo.registrasi;
  * @author Raka Darma
  */
 public class Registrasi {
+
     private String nama;
     private String noTelp;
     private String email;
@@ -43,13 +44,10 @@ public class Registrasi {
         this.email = email;
     }
 
-    public static boolean isEmpty(String nama, String noTelp, String email, String alamat, String sim, String kendaraan) {
-        return (nama == null || nama.isEmpty() ||
-                (noTelp == null || noTelp.isEmpty()) ||
-                (email == null || email.isEmpty()) ||
-                (alamat != null && alamat.isEmpty()) ||
-                (sim != null && sim.isEmpty()) ||
-                (kendaraan != null && kendaraan.isEmpty()));
+    public static boolean isEmpty(String nama, String noTelp, String email, String password) {
+        return (nama == null || nama.isEmpty()
+                || (noTelp == null || noTelp.isEmpty())
+                || (email == null || email.isEmpty())
+                || (password != null && password.isEmpty()));
     }
 }
-

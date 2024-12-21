@@ -15,6 +15,7 @@ import com.mycompany.tubes_dpbo.penjemputan.Pengantaran;
 import com.mycompany.tubes_dpbo.registrasi.Registrasi;
 import com.mycompany.tubes_dpbo.registrasi.RegistrasiUser;
 import com.mycompany.tubes_dpbo.riwayatdanpromo.Promo;
+import com.mycompany.tubes_dpbo.registrasi.Driver;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ArrayList<RegistrasiUser> user = new ArrayList<>();
         ArrayList<Pemesanan> pemesanans = new ArrayList<>();
+        Driver driver = new Driver();
 
         while (true) {
             System.out.println("\n=== APLIKASI ANTAR JEMPUT KENDARAAN ONLINE ===");
@@ -43,12 +45,12 @@ public class Main {
                     String noTelpUser = scanner.nextLine();
                     System.out.print("Masukkan email: ");
                     String emailUser = scanner.nextLine();
-                    System.out.print("Masukkan alamat: ");
+                    System.out.print("Masukkan password: ");
                     String alamatUser = scanner.nextLine();
 
                     RegistrasiUser newUser = new RegistrasiUser(alamatUser, namaUser, noTelpUser, emailUser);
 
-                    if (Registrasi.isEmpty(newUser.getNama(), newUser.getNoTelp(), newUser.getEmail(), newUser.getAlamat(), null, null)) {
+                    if (Registrasi.isEmpty(newUser.getNama(), newUser.getNoTelp(), newUser.getEmail(), newUser.getPassword())) {
                         System.out.println("Registrasi user gagal. Semua data harus diisi.");
                     } else {
                         user.add(newUser);
@@ -92,7 +94,7 @@ public class Main {
                         if (users.getNama().equalsIgnoreCase(namaMasuk)) {
                             isUserRegistered = true;
                             System.out.println("Selamat datang, " + users.getNama() + "!");
-                            showMenuUtama(scanner, pemesanans); // Pass pemesanans to showMenuUtama
+                            showMenuUtama(scanner, pemesanans, driver); // Pass pemesanans to showMenuUtama
                             break;
                         }
                     }
@@ -112,7 +114,7 @@ public class Main {
         }
     }
 
-    private static void showMenuUtama(Scanner scanner, ArrayList<Pemesanan> pemesanans) {
+    private static void showMenuUtama(Scanner scanner, ArrayList<Pemesanan> pemesanans, Driver driver) {
         while (true) {
             System.out.println("\n=== MENU UTAMA ===");
             System.out.println("1. Pesan Kendaraan");
@@ -126,6 +128,14 @@ public class Main {
             switch (pilih) {
                 case 1:
                     // Pesan kendaraan
+                    System.out.println("----------------Daftar Peta----------------");
+                    System.out.println("Asal\t\t Tujuan\t\t Km");
+                    System.out.println("Bojongsoang\t\t Cibiru\t\t 14");
+                    System.out.println("Bojongsoang\t\t Baleendah\t 8");
+                    System.out.println("Bojongsoang\t\t Cimahi\t\t 11");
+                    System.out.println("Bojongsoang\t\t Kiaracondong\t 18");
+                    System.out.println("Bojongsoang\t\t Margaasih\t 5");
+
                     System.out.println("Pilih jenis kendaraan:");
                     System.out.println("1. Motor");
                     System.out.println("2. Mobil");
@@ -135,106 +145,54 @@ public class Main {
 
                     System.out.print("Masukkan nama: ");
                     String name = scanner.nextLine();
-
-                    // Input lokasi penjemputan
-                    Penjemputan penjemputan;
                     String pickuplocation;
                     while (true) {
                         try {
                             System.out.print("Masukkan lokasi penjemputan: ");
                             pickuplocation = scanner.nextLine();
-                            penjemputan = new Penjemputan(pickuplocation);
-                            penjemputan.alamatAsal(pickuplocation); // Menetapkan alamat asal
+                            Penjemputan penjemputan = new Penjemputan(pickuplocation);
+                            penjemputan.alamatAsal(pickuplocation);
                             break;
                         } catch (IllegalArgumentException e) {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
-
-                    // Input tujuan
-                    Pengantaran pengantaran;
                     String destination;
                     while (true) {
                         try {
                             System.out.print("Masukkan tujuan: ");
                             destination = scanner.nextLine();
-                            pengantaran = new Pengantaran(name, destination);
-                            pengantaran.alamatTujuan(destination); // Menetapkan alamat tujuan
-                            break;
+                            Pengantaran pengantaran = new Pengantaran(name, destination);
+                            pengantaran.alamatTujuan(destination);
+                            Pemesanan pemesanan = null;
+                            if (kendaraanPilih == 1) {
+                                pemesanan = new Motor(name, pickuplocation, destination, "Motor");
+
+                            } else if (kendaraanPilih == 2) {
+                                pemesanan = new Mobil(name, pickuplocation, destination, "Mobil");
+                            }
+
+                            if (pemesanan != null) {
+                                pemesanans.add(pemesanan); // Add booking to the list
+                                driver.addRandomDriver();
+                                System.out.println("Pemesanan berhasil!");
+                                System.out.println(pemesanan.toString());
+                                System.out.println(driver.toString());
+                                break;
+                            }
                         } catch (IllegalArgumentException e) {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
-
-                    // Proses pemesanan kendaraan
-                    Pemesanan pemesanan;
-                    int hargaAwal = 0;
-
-                    if (kendaraanPilih == 1) {
-                        pemesanan = new Motor(name, pickuplocation, destination);
-                        hargaAwal = 3000; // Harga awal untuk Motor
-                    } else if (kendaraanPilih == 2) {
-                        pemesanan = new Mobil(name, pickuplocation, destination);
-                        hargaAwal = 5000; // Harga awal untuk Mobil
-                    } else {
-                        System.out.println("Pilihan kendaraan tidak valid.");
-                        break;
-                    }
-
-                    // Input kode promo
-                    System.out.print("Masukkan kode promo (jika ada): ");
-                    String inputKodePromo = scanner.nextLine();
-                    Promo appliedPromo = null;
-
-                    for (Promo promo : Promo.getPromos()) {
-                        if (promo.kode.equalsIgnoreCase(inputKodePromo)
-                                && promo.jenisKendaraan.equalsIgnoreCase(pemesanan.getKendaraan())) {
-                            appliedPromo = promo;
-                            break;
-                        }
-                    }
-
-                    // Hitung harga setelah diskon
-                    int hargaSetelahDiskon = hargaAwal;
-                    if (appliedPromo != null) {
-                        hargaSetelahDiskon = appliedPromo.calculateDiscountedPrice();
-                        System.out.println("Kode promo berhasil diterapkan! Diskon: " + appliedPromo.diskon + "%");
-                    } else if (!inputKodePromo.isEmpty()) {
-                        System.out.println("Kode promo tidak valid atau tidak cocok dengan jenis kendaraan!");
-                    }
-
-                    System.out.println("Harga Awal: Rp" + hargaAwal);
-                    System.out.println("Harga Setelah Diskon: Rp" + hargaSetelahDiskon);
-
-                    // Tambahkan ke riwayat pemesanan
-                    pemesanans.add(pemesanan);
-                    System.out.println("Pemesanan berhasil!");
-                    System.out.println(pemesanan.toString());
-                    System.out.println("Detail Pengantaran: ");
-                    pengantaran.alamatTujuan(destination); // Menampilkan tujuan pengantaran
                     break;
-
                 case 2:
+                    // Display riwayat
                     if (pemesanans.isEmpty()) {
                         System.out.println("Belum ada riwayat pemesanan.");
                     } else {
                         System.out.println("\n=== RIWAYAT PEMESANAN ===");
                         for (int i = 0; i < pemesanans.size(); i++) {
                             System.out.println((i + 1) + ". " + pemesanans.get(i).toString());
-                        }
-
-                        System.out.print("Masukkan nomor pemesanan untuk melihat detail (atau 0 untuk kembali): ");
-                        int nomor = scanner.nextInt();
-                        scanner.nextLine();
-
-                        if (nomor > 0 && nomor <= pemesanans.size()) {
-                            Pemesanan pemesananDetail = pemesanans.get(nomor - 1);
-                            System.out.println("\n=== DETAIL PEMESANAN ===");
-                            System.out.println(pemesanans.get(nomor - 1).toString());
-                        } else if (nomor == 0) {
-                            break;
-                        } else {
-                            System.out.println("Pilihan tidak valid.");
                         }
                     }
                     break;

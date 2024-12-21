@@ -12,8 +12,8 @@ import com.mycompany.tubes_dpbo.pemesanan.Pemesanan;
 public class Motor extends Pemesanan implements Kendaraan {
     private int total;
 
-    public Motor(String Name, String pickuplocation, String destination) {
-        super(Name, pickuplocation, destination, "Motor");
+    public Motor(String Name, String pickuplocation, String destination, String kendaraan) {
+        super(Name, pickuplocation, destination, kendaraan);
     }
     
     @Override

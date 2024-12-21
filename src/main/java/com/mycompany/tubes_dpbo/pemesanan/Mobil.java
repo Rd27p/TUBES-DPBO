@@ -13,8 +13,8 @@ import com.mycompany.tubes_dpbo.pemesanan.Pemesanan;
 public class Mobil extends Pemesanan implements Kendaraan {
     private int total;
 
-    public Mobil(String Name, String pickuplocation, String destination) {
-        super(Name, pickuplocation, destination, "Mobil");
+    public Mobil(String Name, String pickuplocation, String destination, String kendaraan) {
+        super(Name, pickuplocation, destination, kendaraan);
     }
     
     @Override
