@@ -47,5 +47,4 @@ public class Promo {
                "Harga Setelah Diskon: Rp" + calculateDiscountedPrice() + "\n" +
                "Jenis Kendaraan: " + jenisKendaraan;
     }
-
 }

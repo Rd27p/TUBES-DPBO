@@ -10,6 +10,7 @@ package com.mycompany.tubes_dpbo;
 import com.mycompany.tubes_dpbo.pemesanan.Mobil;
 import com.mycompany.tubes_dpbo.pemesanan.Motor;
 import com.mycompany.tubes_dpbo.penjemputan.Penjemputan;
+import com.mycompany.tubes_dpbo.pesananSelesai.Rating;
 import com.mycompany.tubes_dpbo.pemesanan.Pemesanan;
 import com.mycompany.tubes_dpbo.penjemputan.Pengantaran;
 import com.mycompany.tubes_dpbo.registrasi.Registrasi;
@@ -18,6 +19,7 @@ import com.mycompany.tubes_dpbo.riwayatdanpromo.Promo;
 import com.mycompany.tubes_dpbo.registrasi.Driver;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 public class Main {
 
@@ -164,6 +166,11 @@ public class Main {
                             destination = scanner.nextLine();
                             Pengantaran pengantaran = new Pengantaran(name, destination);
                             pengantaran.alamatTujuan(destination);
+                            
+                            System.out.println("Masukkan metode pembayaran");
+                            System.out.println("1. Cash");
+                            System.out.println("2. Debit");
+                            scanner.nextLine();
 
                             System.out.print("Masukkan kode promo (jika ada, tekan enter jika tidak): ");
                             String kodePromo = scanner.nextLine();
@@ -209,6 +216,27 @@ public class Main {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
+                    
+                    int rating;
+                    while (true) {
+                        try {
+                            System.out.println("Silahkan berikan rating kepada driver (1-5): ");
+                            rating = scanner.nextInt();
+                            if (rating < 1 || rating > 5) {
+                                throw new IllegalArgumentException("Rating harus antara 1 dan 5.");
+                            }
+                            Rating rate = new Rating(rating);
+                            rate.Rate();
+                            System.out.println(rate.toString());
+                            break;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Input harus berupa angka.");
+                            scanner.nextLine();
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Error: " + e.getMessage());
+                        }
+                    }
+                    System.out.println("Pesanan Telah selesai");
                     break;
                 case 2:
                     // Display riwayat
