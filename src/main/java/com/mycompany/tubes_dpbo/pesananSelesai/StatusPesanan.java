@@ -11,4 +11,9 @@ import com.mycompany.tubes_dpbo.pemesanan.Kendaraan;
  */
 public class StatusPesanan {
     
+    @Override
+    public String toString() {
+        return "Anda sudah tiba di tujuan" ;
+    }
+    
 }
