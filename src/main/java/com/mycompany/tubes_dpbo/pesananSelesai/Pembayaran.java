@@ -9,23 +9,28 @@ package com.mycompany.tubes_dpbo.pesananSelesai;
  * @author Raka Darma
  */
 public class Pembayaran {
-   public int Bayar;
+    public int bayar;
     public String MetodeBayar;
-
-    public Pembayaran(int Bayar, String metodeBayar) {
-        this.Bayar = Bayar;
-    }
-
-    public int getBayar() {
-        return Bayar;
-    }
 
     public String getMetodeBayar() {
         return MetodeBayar;
     }
     
+    public void MetodePembayaran() {
+        switch (bayar) {
+            case 1:
+                this.MetodeBayar = "Cash";
+                break;
+            case 2:
+                this.MetodeBayar = "Debit";
+                break;
+            default:
+                throw new IllegalArgumentException("Metode Pembayaran tidak valid");
+        }
+    }
+    
     @Override
     public String toString() {
-        return "Anda telah membayar Rp." + this.Bayar + " dengan metode " + this.MetodeBayar;
+        return "Metode pembayaran anda " + this.MetodeBayar;
     }
 }

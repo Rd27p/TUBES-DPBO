@@ -13,6 +13,7 @@ import com.mycompany.tubes_dpbo.penjemputan.Penjemputan;
 import com.mycompany.tubes_dpbo.pesananSelesai.Rating;
 import com.mycompany.tubes_dpbo.pemesanan.Pemesanan;
 import com.mycompany.tubes_dpbo.penjemputan.Pengantaran;
+import com.mycompany.tubes_dpbo.pesananSelesai.Pembayaran;
 import com.mycompany.tubes_dpbo.registrasi.Registrasi;
 import com.mycompany.tubes_dpbo.registrasi.RegistrasiUser;
 import com.mycompany.tubes_dpbo.riwayatdanpromo.Promo;
@@ -94,7 +95,7 @@ public class Main {
                     boolean isUserRegistered = false;
 
                     for (RegistrasiUser users : user) {
-                        if (users.getNama().equalsIgnoreCase(namaMasuk)) {
+                        if (users.getNama().equals(namaMasuk)) {
                             isUserRegistered = true;
                             System.out.println("Selamat datang, " + users.getNama() + "!");
                             showMenuUtama(scanner, pemesanans, driver); // Pass pemesanans to showMenuUtama
@@ -167,11 +168,23 @@ public class Main {
                             destination = scanner.nextLine();
                             Pengantaran pengantaran = new Pengantaran(name, destination);
                             pengantaran.alamatTujuan(destination);
-                            
+
                             System.out.println("Masukkan metode pembayaran");
                             System.out.println("1. Cash");
                             System.out.println("2. Debit");
+                            System.out.print("Pilih metode pembayaran: ");
+                            int metodeBayar = scanner.nextInt();
                             scanner.nextLine();
+
+                            Pembayaran p = new Pembayaran();
+                            p.bayar = metodeBayar;
+                            try {
+                                p.MetodePembayaran();
+                                System.out.println(p.toString());
+                            } catch (IllegalArgumentException e) {
+                                System.out.println("Error: " + e.getMessage());
+                                continue;
+                            }
 
                             System.out.print("Masukkan kode promo (jika ada, tekan enter jika tidak): ");
                             String kodePromo = scanner.nextLine();
@@ -210,6 +223,7 @@ public class Main {
                                 driver.addRandomDriver();
                                 System.out.println("Pemesanan berhasil!");
                                 System.out.println(pemesanan.toString());
+                                System.out.println("Metode Pembayaran\t: " + p.getMetodeBayar());
                                 System.out.println(driver.toString());
                                 break;
                             }
@@ -217,10 +231,11 @@ public class Main {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
-                    
+
                     StatusPesanan Sp = new StatusPesanan();
                     System.out.println(Sp.toString());
-                    
+                    System.out.println(" ");
+
                     int rating;
                     while (true) {
                         try {
