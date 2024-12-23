@@ -10,7 +10,7 @@ package com.mycompany.tubes_dpbo.riwayatdanpromo;
  */
 public class Promo {
     public String kode;
-    protected int hargaPromo;
+    public int hargaPromo;
     public int diskon;
     public String jenisKendaraan;
 

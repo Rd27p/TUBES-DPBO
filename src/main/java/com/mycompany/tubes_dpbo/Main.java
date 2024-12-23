@@ -164,6 +164,26 @@ public class Main {
                             destination = scanner.nextLine();
                             Pengantaran pengantaran = new Pengantaran(name, destination);
                             pengantaran.alamatTujuan(destination);
+
+                            System.out.print("Masukkan kode promo (jika ada, tekan enter jika tidak): ");
+                            String kodePromo = scanner.nextLine();
+
+                            Promo appliedPromo = null;
+                            if (!kodePromo.isEmpty()) {
+                                for (Promo promo : Promo.getPromos()) {
+                                    if (promo.kode.equalsIgnoreCase(kodePromo) && promo.getJenisKendaraan().equalsIgnoreCase(
+                                            kendaraanPilih == 1 ? "Motor" : "Mobil")) {
+                                        appliedPromo = promo;
+                                        break;
+                                    }
+                                }
+                                if (appliedPromo == null) {
+                                    System.out.println("Kode promo tidak valid atau tidak berlaku untuk kendaraan ini.");
+                                } else {
+                                    System.out.println("Kode promo berhasil diterapkan: " + appliedPromo.kode);
+                                }
+                            }
+
                             Pemesanan pemesanan = null;
                             if (kendaraanPilih == 1) {
                                 pemesanan = new Motor(name, pickuplocation, destination, "Motor");
@@ -173,6 +193,11 @@ public class Main {
                             }
 
                             if (pemesanan != null) {
+                                if (appliedPromo != null) {
+                                    System.out.println("Harga Awal: Rp" + appliedPromo.hargaPromo);
+                                    System.out.println("Diskon: " + appliedPromo.diskon + "%");
+                                    System.out.println("Harga Setelah Diskon: Rp" + appliedPromo.calculateDiscountedPrice());
+                                }
                                 pemesanans.add(pemesanan); // Add booking to the list
                                 driver.addRandomDriver();
                                 System.out.println("Pemesanan berhasil!");

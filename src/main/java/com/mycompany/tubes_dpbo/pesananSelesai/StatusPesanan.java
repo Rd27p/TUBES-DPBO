@@ -10,5 +10,5 @@ import com.mycompany.tubes_dpbo.pemesanan.Kendaraan;
  * @author Raka Darma
  */
 public class StatusPesanan {
-
+   
 }
