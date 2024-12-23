@@ -218,6 +218,8 @@ public class Main {
                         }
                     }
                     
+                    StatusPesanan Sp = new StatusPesanan();
+                    System.out.println(Sp.toString());
                     
                     int rating;
                     while (true) {
