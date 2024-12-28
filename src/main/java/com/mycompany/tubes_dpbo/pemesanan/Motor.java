@@ -5,6 +5,7 @@
 package com.mycompany.tubes_dpbo.pemesanan;
 
 import com.mycompany.tubes_dpbo.pemesanan.Pemesanan;
+import com.mycompany.tubes_dpbo.riwayatdanpromo.Promo;
 /**
  *
  * @author naufa
@@ -43,6 +44,21 @@ public class Motor extends Pemesanan implements Kendaraan {
                 System.out.println("Jarak tujuan tidak diketahui");
         }
         return jarak * jarakPerKilometer;
+    }
+    
+    public double applyPromo(String promoCode) {
+        Promo[] promos = Promo.getPromos();
+        int originalPrice = totalHarga();  // Get original price
+        double discountedPrice = originalPrice; // Default is no discount
+        
+        // Search for the valid promo
+        for (Promo promo : promos) {
+            if (promo.kode.equals(promoCode) && promo.getJenisKendaraan().equals(getKendaraan())) {
+                discountedPrice = promo.calculateDiscountedPrice();  // Apply discount
+                break;
+            } 
+        }
+        return discountedPrice;  // Return the discounted price
     }
 
     @Override

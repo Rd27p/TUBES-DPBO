@@ -48,10 +48,10 @@ public class Mobil extends Pemesanan implements Kendaraan {
     }
 
     // Apply promo code and adjust the total price immediately
-    public int applyPromo(String promoCode) {
+    public double applyPromo(String promoCode) {
         Promo[] promos = Promo.getPromos();
         int originalPrice = totalHarga();  // Get original price
-        int discountedPrice = originalPrice; // Default is no discount
+        double discountedPrice = originalPrice; // Default is no discount
         
         // Search for the valid promo
         for (Promo promo : promos) {

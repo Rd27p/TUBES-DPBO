@@ -225,11 +225,16 @@ public class Main {
                                 // Check if there's a promo and the vehicle is a "Mobil"
                                 if (appliedPromo != null && pemesanan.getKendaraan().equals("Mobil")) {
                                     int originalPrice = pemesanan.totalHarga();  // Get the original price
-                                    int discountedPrice = originalPrice;  // Default to original price in case no promo is applied
-                                    discountedPrice = appliedPromo.calculateDiscountedPrice();  // Get discounted price based on promo
+                                    double discountedPrice = appliedPromo.calculateDiscountedPrice();  // Get discounted price based on promo
                                     System.out.println("Harga Awal: Rp" + originalPrice);
                                     System.out.println("Diskon: " + appliedPromo.diskon + "%");
-                                    System.out.println("Harga Setelah Diskon: Rp" + (originalPrice - discountedPrice));
+                                    System.out.println("Harga Setelah Diskon: Rp" + (originalPrice * (discountedPrice / 100)));
+                                } else if (appliedPromo != null && pemesanan.getKendaraan().equals("Motor")){
+                                    int originalPrice = pemesanan.totalHarga();  // Get the original price
+                                    double discountedPrice = appliedPromo.calculateDiscountedPrice();  // Get discounted price based on promo
+                                    System.out.println("Harga Awal: Rp" + originalPrice);
+                                    System.out.println("Diskon: " + appliedPromo.diskon + "%");
+                                    System.out.println("Harga Setelah Diskon: Rp" + (originalPrice * (discountedPrice / 100)));
                                 }
                                 break;
                             }
@@ -237,7 +242,6 @@ public class Main {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
-                    
                     System.out.println(" ");
                     StatusPesanan Sp = new StatusPesanan();
                     System.out.println(Sp.toString());
