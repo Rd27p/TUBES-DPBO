@@ -214,24 +214,31 @@ public class Main {
                             }
 
                             if (pemesanan != null) {
-                                if (appliedPromo != null) {
-                                    System.out.println("Harga Awal: Rp" + appliedPromo.hargaPromo);
-                                    System.out.println("Diskon: " + appliedPromo.diskon + "%");
-                                    System.out.println("Harga Setelah Diskon: Rp" + appliedPromo.calculateDiscountedPrice());
-                                }
                                 pemesanans.add(pemesanan); // Add booking to the list
                                 driver.addRandomDriver();
                                 System.out.println("Pemesanan berhasil!");
                                 System.out.println(pemesanan.toString());
                                 System.out.println("Metode Pembayaran\t: " + p.getMetodeBayar());
                                 System.out.println(driver.toString());
+                                System.out.println(" ");
+
+                                // Check if there's a promo and the vehicle is a "Mobil"
+                                if (appliedPromo != null && pemesanan.getKendaraan().equals("Mobil")) {
+                                    int originalPrice = pemesanan.totalHarga();  // Get the original price
+                                    int discountedPrice = originalPrice;  // Default to original price in case no promo is applied
+                                    discountedPrice = appliedPromo.calculateDiscountedPrice();  // Get discounted price based on promo
+                                    System.out.println("Harga Awal: Rp" + originalPrice);
+                                    System.out.println("Diskon: " + appliedPromo.diskon + "%");
+                                    System.out.println("Harga Setelah Diskon: Rp" + (originalPrice - discountedPrice));
+                                }
                                 break;
                             }
                         } catch (IllegalArgumentException e) {
                             System.out.println("Error: " + e.getMessage());
                         }
                     }
-
+                    
+                    System.out.println(" ");
                     StatusPesanan Sp = new StatusPesanan();
                     System.out.println(Sp.toString());
                     System.out.println(" ");

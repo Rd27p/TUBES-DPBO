@@ -58,4 +58,8 @@ public class Pemesanan {
     public String toString() {
         return "Pemesanan dengan Nama: " + Name + ", Lokasi Penjemputan: " + pickuplocation + ", Tujuan: " + destination + ", Menggunakan Kendaraan: " + kendaraan;
     }
+
+    public int totalHarga() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -48,3 +48,4 @@ public class Promo {
                "Jenis Kendaraan: " + jenisKendaraan;
     }
 }
+
