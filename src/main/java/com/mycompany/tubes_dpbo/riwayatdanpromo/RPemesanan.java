@@ -44,9 +44,6 @@ public abstract class RPemesanan {
     // Abstract toString method
     @Override
     public abstract String toString();
-
-    public boolean getDetail() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 }
 
