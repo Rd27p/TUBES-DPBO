@@ -11,8 +11,8 @@ import com.mycompany.tubes_dpbo.riwayatdanpromo.RPemesanan;
  * @author Raka Darma
  */
 public class Riwayat extends RPemesanan {
-    private double hargaPerKm; // Price per kilometer
-    private double jarak; // Distance in kilometers
+    private double hargaPerKm;
+    private double jarak; 
 
     public Riwayat(String name, String pickuplocation, String destination, String kendaraan, double hargaPerKm, double jarak) {
         super(name, pickuplocation, destination, kendaraan);
@@ -20,13 +20,11 @@ public class Riwayat extends RPemesanan {
         this.jarak = jarak;
     }
 
-    // Implementation of total price calculation
     @Override
     public double totalHarga() {
         return hargaPerKm * jarak;
     }
 
-    // Implementation of toString
     @Override
     public String toString() {
         return "Pemesanan dengan Nama\t: " + super.getName() + 

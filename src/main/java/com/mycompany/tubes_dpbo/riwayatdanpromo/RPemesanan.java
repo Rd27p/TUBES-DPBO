@@ -9,10 +9,10 @@ package com.mycompany.tubes_dpbo.riwayatdanpromo;
  * @author Raka Darma
  */
 public abstract class RPemesanan {
-    protected String name; // Driver or User Name
+    protected String name;
     protected String pickuplocation;
     protected String destination;
-    protected String kendaraan; // Vehicle type
+    protected String kendaraan; 
 
     public RPemesanan(String name, String pickuplocation, String destination, String kendaraan) {
         this.name = name;
@@ -21,7 +21,6 @@ public abstract class RPemesanan {
         this.kendaraan = kendaraan;
     }
 
-    // Getter methods for the fields
     public String getName() {
         return name;
     }
@@ -37,13 +36,10 @@ public abstract class RPemesanan {
     public String getKendaraan() {
         return kendaraan;
     }
-
-    // Abstract method for total price calculation
+    
     public abstract double totalHarga();
 
-    // Abstract toString method
     @Override
-    public abstract String toString();
-    
+    public abstract String toString();   
 }
 
